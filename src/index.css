@@ -1,0 +1,108 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    background-color: #fdf9f4;
+    color: #1c1c19;
+    overflow-x: hidden;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+  }
+  ::selection {
+    background-color: #9a4020;
+    color: #ffffff;
+  }
+  :focus-visible {
+    outline: 2px solid #9a4020;
+    outline-offset: 2px;
+  }
+  /* Material Symbols default rendering */
+  .material-symbols-outlined {
+    font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+    font-size: 1.25rem;
+    line-height: 1;
+    vertical-align: middle;
+  }
+}
+
+@layer components {
+  /* Moroccan Zellij dotted pattern overlay */
+  .zellij-pattern {
+    background-image: radial-gradient(circle at 2px 2px, #dcc1b8 1px, transparent 0);
+    background-size: 40px 40px;
+    opacity: 0.12;
+    pointer-events: none;
+  }
+
+  /* Mashrabiya lattice divider */
+  .mashrabiya-divider {
+    height: 2px;
+    width: 100%;
+    background: linear-gradient(to right, transparent, #9a4020 20%, #9a4020 80%, transparent);
+    opacity: 0.4;
+  }
+
+  /* Bottom-border only input style (legacy pages) */
+  .input-underline {
+    @apply w-full bg-transparent border-0 border-b border-outline py-3 px-0 font-sans text-on-surface focus:ring-0 focus:outline-none focus:border-primary transition-colors duration-300;
+  }
+
+  /* Label caps style */
+  .label-caps {
+    @apply font-sans text-[12px] font-bold tracking-[0.1em] uppercase;
+  }
+
+  /* Primary CTA button (legacy helper, prefer <Button /> component) */
+  .btn-primary {
+    @apply bg-primary text-on-primary font-label-lg rounded-lg px-8 py-3 transition-all duration-300 hover:bg-primary-container active:scale-95;
+  }
+
+  /* Secondary outline button */
+  .btn-secondary {
+    @apply border border-primary text-primary font-label-lg rounded-lg px-8 py-3 transition-all duration-300 hover:bg-primary hover:text-on-primary;
+  }
+
+  /* Section container */
+  .section-container {
+    @apply max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop;
+  }
+
+  /* Scroll reveal animation */
+  .reveal {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Skeleton loading shimmer */
+  .skeleton {
+    @apply relative overflow-hidden bg-surface-container-high;
+  }
+  .skeleton::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background-image: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
+    animation: shimmer 1.6s infinite;
+  }
+  @keyframes shimmer {
+    100% { transform: translateX(100%); }
+  }
+
+  .fade-in {
+    animation: fadeIn 0.8s ease-out forwards;
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+}
