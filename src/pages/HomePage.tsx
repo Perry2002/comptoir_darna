@@ -275,7 +275,7 @@ export default function HomePage() {
                     <span className="font-body-md">{item}</span>
                   </li>
                 ))}
-              </ul>
+              </ul><br />
               <Link to="/experience">
                 <Button variant="primary" size="md">
                   En savoir plus
@@ -327,7 +327,7 @@ export default function HomePage() {
               Réservez votre table en temps réel et profitez d'une expérience simple, rapide et
               pensée pour vous. Astuce des habitués : privilégiez une table à l'étage pour
               profiter pleinement de l'ambiance du spectacle.
-            </p>
+            </p> <br />
             <Link to="/reservation">
               <Button variant="accent" size="lg">
                 Je réserve pour ce soir
