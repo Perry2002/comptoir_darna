@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
 import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-// , useInView
+
 export interface ScrollScrubHeroProps {
   /** Dossier contenant les frames, ex: "/videos/experience-hero-frames" */
   framesBasePath: string
@@ -12,6 +12,9 @@ export interface ScrollScrubHeroProps {
   subtitle?: string
   heightClass?: string
   scrubVh?: number
+  /** Point focal du cadrage (0 à 1). 0.5/0.5 = centré (comportement par défaut). */
+  focalX?: number
+  focalY?: number
 }
 
 function frameUrl(base: string, index: number, ext: string) {
@@ -25,18 +28,22 @@ export default function ScrollScrubHero({
   posterSrc,
   title,
   subtitle,
-  heightClass = 'h-screen',
+  heightClass = 'h-[100dvh]', // FIX: 100dvh au lieu de h-screen (100vh) — évite le décalage dû à la barre d'outils mobile
   scrubVh = 300,
+  focalX = 0.5,
+  focalY = 0.5,
 }: ScrollScrubHeroProps) {
   const trackRef = useRef<HTMLDivElement>(null)
   const canvasRef = useRef<HTMLCanvasElement>(null)
   const imagesRef = useRef<HTMLImageElement[]>([])
   const currentFrameRef = useRef(-1)
+  // FIX: on stocke la taille *logique* (CSS) du canvas séparément du buffer physique
+  // (canvas.width/height), puisque le contexte est déjà mis à l'échelle par le dpr.
+  const canvasSizeRef = useRef({ width: 0, height: 0 })
   const [loadedCount, setLoadedCount] = useState(0)
   const [ready, setReady] = useState(false)
 
   const prefersReducedMotion = useReducedMotion()
-  // const isInView = useInView(trackRef, { amount: 0.2 })
 
   const { scrollYProgress } = useScroll({
     target: trackRef,
@@ -50,34 +57,41 @@ export default function ScrollScrubHero({
   const cueOpacity = useTransform(scrollYProgress, [0, 0.08], prefersReducedMotion ? [0, 0] : [1, 0])
 
   // Dessine une frame donnée sur le canvas, en respectant un rendu "object-cover"
-  const drawFrame = useCallback((index: number) => {
-    const canvas = canvasRef.current
-    const img = imagesRef.current[index]
-    if (!canvas || !img || !img.complete || img.naturalWidth === 0) return
+  const drawFrame = useCallback(
+    (index: number) => {
+      const canvas = canvasRef.current
+      const img = imagesRef.current[index]
+      if (!canvas || !img || !img.complete || img.naturalWidth === 0) return
 
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
+      const ctx = canvas.getContext('2d')
+      if (!ctx) return
 
-    const cw = canvas.width
-    const ch = canvas.height
-    const ir = img.naturalWidth / img.naturalHeight
-    const cr = cw / ch
+      // FIX: on utilise les dimensions CSS logiques (pas canvas.width/height, qui sont
+      // déjà en pixels physiques × dpr — sinon le contexte, déjà scale(dpr), les
+      // remultiplie et l'image est dessinée dpr fois trop grande)
+      const { width: cw, height: ch } = canvasSizeRef.current
+      if (!cw || !ch) return
 
-    let dw, dh, dx, dy
-    if (ir > cr) {
-      dh = ch
-      dw = ch * ir
-      dx = (cw - dw) / 2
-      dy = 0
-    } else {
-      dw = cw
-      dh = cw / ir
-      dx = 0
-      dy = (ch - dh) / 2
-    }
-    ctx.clearRect(0, 0, cw, ch)
-    ctx.drawImage(img, dx, dy, dw, dh)
-  }, [])
+      const ir = img.naturalWidth / img.naturalHeight
+      const cr = cw / ch
+
+      let dw: number, dh: number, dx: number, dy: number
+      if (ir > cr) {
+        dh = ch
+        dw = ch * ir
+        dx = (cw - dw) * focalX // point focal horizontal (0.5 = centré, comportement d'origine)
+        dy = 0
+      } else {
+        dw = cw
+        dh = cw / ir
+        dx = 0
+        dy = (ch - dh) * focalY // point focal vertical
+      }
+      ctx.clearRect(0, 0, cw, ch)
+      ctx.drawImage(img, dx, dy, dw, dh)
+    },
+    [focalX, focalY]
+  )
 
   // Préchargement de toutes les frames
   useEffect(() => {
@@ -108,20 +122,35 @@ export default function ScrollScrubHero({
   useEffect(() => {
     const canvas = canvasRef.current
     if (!canvas) return
+
     const resize = () => {
       const rect = canvas.parentElement!.getBoundingClientRect()
       const dpr = window.devicePixelRatio || 1
+
+      canvasSizeRef.current = { width: rect.width, height: rect.height }
       canvas.width = rect.width * dpr
       canvas.height = rect.height * dpr
+
       const ctx = canvas.getContext('2d')
+      // FIX: on réinitialise la transform avant de réappliquer scale(dpr, dpr) —
+      // sinon chaque resize (fréquent sur mobile : rotation, barre d'adresse qui
+      // se rétracte pendant le scroll) accumule l'échelle (2x, puis 4x, puis 8x...)
+      ctx?.setTransform(1, 0, 0, 1, 0, 0)
       ctx?.scale(dpr, dpr)
+
       canvas.style.width = `${rect.width}px`
       canvas.style.height = `${rect.height}px`
       if (currentFrameRef.current >= 0) drawFrame(currentFrameRef.current)
     }
+
     resize()
     window.addEventListener('resize', resize)
-    return () => window.removeEventListener('resize', resize)
+    // FIX: iOS déclenche parfois orientationchange sans resize fiable dans la foulée
+    window.addEventListener('orientationchange', resize)
+    return () => {
+      window.removeEventListener('resize', resize)
+      window.removeEventListener('orientationchange', resize)
+    }
   }, [drawFrame])
 
   // Le scrub proprement dit : une frame par tick de progression
