@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useRef, useState } from 'react'
-import { motion, useInView, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion'
-
+import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from 'framer-motion'
+// , useInView
 export interface ScrollScrubHeroProps {
   /** Dossier contenant les frames, ex: "/videos/experience-hero-frames" */
   framesBasePath: string
