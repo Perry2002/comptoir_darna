@@ -7,7 +7,7 @@ compatibility_date = "2024-09-23"
 RESTAURANT_EMAIL ="perrydoyigbe197@gmail.com" 
 # "reservation@comptoirdarna.com" # à remplacer par la vraie adresse
 FROM_EMAIL = "onboarding@resend.dev"  # "reservations@comptoirdarna.com"       # domaine vérifié sur Resend
-ALLOWED_ORIGIN ="https://comptoir-darna.vercel.app/"
+ALLOWED_ORIGIN ="https://comptoir-darna.vercel.app"
  #"http://localhost:5173/"     # domaine du frontend en prod
 
 # Secrets à définir avec :
