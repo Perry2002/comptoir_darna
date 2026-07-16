@@ -1,0 +1,10 @@
+{
+  "compilerOptions": {
+    "target": "es2021",
+    "module": "es2022",
+    "lib": ["es2021"],
+    "types": ["@cloudflare/workers-types"],
+    "strict": true,
+    "moduleResolution": "bundler"
+  }
+}
