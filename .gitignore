@@ -22,5 +22,5 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-.dev.vars
+comptoir-darna-reservation-worker/.dev.vars
 .env
