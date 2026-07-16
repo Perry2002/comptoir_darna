@@ -5,8 +5,9 @@ import Button from '../components/ui/Button'
 import { Input, Select } from '../components/ui/FormField'
 import { submitReservation } from '../lib/api'
 import type { ReservationFormData, SubmissionState } from '../types'
+import { timeSlots, tableOptions } from '../lib/reservationOptions'
+// const timeSlots = ['19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00']
 
-const timeSlots = ['19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00']
 
 function todayISO() {
   return new Date().toISOString().split('T')[0]
@@ -228,13 +229,12 @@ export default function ReservationPage() {
                         min={1}
                         max={20}
                         placeholder="2"
-                        required
+                        required 
                       />
                       <Select label="Choix de la table" name="table" defaultValue="Standard" required>
-                        <option value="Standard">Standard</option>
-                        <option value="Courtyard">Patio Central</option>
-                        <option value="Lounge">Salon Lounge</option>
-                        <option value="Private">Espace Privé</option>
+                        {tableOptions.map((t) => (
+                           <option key={t.value} value={t.value}>{t.label}</option>
+                        ))}
                       </Select>
                     </div>
 

@@ -10,6 +10,9 @@ import { useScrollReveal } from '../hooks/useScrollReveal'
 import { popularDishes } from '../data/menu'
 import { chefs } from '../data/chefs'
 import { reviews } from '../data/reviews'
+import { submitReservation } from '../lib/api'
+import { timeSlots, tableOptions } from '../lib/reservationOptions'
+import type { ReservationFormData } from '../types'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -37,34 +40,81 @@ const commitments = [
 
 function ReservationWidget() {
   const [submitting, setSubmitting] = useState(false)
+  const [error, setError] = useState('')
+  const [success, setSuccess] = useState(false)
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+  async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
+    const form = new FormData(e.currentTarget)
+
+    const data: ReservationFormData = {
+      name: String(form.get('name') || ''),
+      email: String(form.get('email') || ''),
+      date: String(form.get('date') || ''),
+      time: String(form.get('time') || ''),
+      guests: Number(form.get('guests') || 2),
+      table: String(form.get('table') || 'Standard'),
+    }
+
     setSubmitting(true)
-    // Quick-book widget hands off to the full reservation page/flow.
-    window.setTimeout(() => setSubmitting(false), 600)
+    setError('')
+    try {
+      await submitReservation(data)
+      setSuccess(true)
+      e.currentTarget.reset()
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Une erreur est survenue, merci de réessayer.')
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  if (success) {
+    return (
+      <div className="bg-surface/95 backdrop-blur-md p-stack-md rounded-xl shadow-2xl space-y-4 border border-white/40 text-center">
+        <h2 className="font-headline-md text-primary">Réservation envoyée !</h2>
+        <p className="text-on-surface-variant">Vous allez recevoir un email de confirmation.</p>
+        <Button variant="secondary" onClick={() => setSuccess(false)}>
+          Faire une autre réservation
+        </Button>
+      </div>
+    )
   }
 
   return (
     <div className="bg-surface/95 backdrop-blur-md p-stack-md rounded-xl shadow-2xl space-y-6 border border-white/40">
       <h2 className="font-headline-md text-primary text-center">Réserver votre table</h2>
       <form className="grid grid-cols-2 gap-4" onSubmit={handleSubmit} noValidate>
+        {error && (
+          <div role="alert" className="col-span-2 bg-error-container text-on-error-container rounded-lg px-4 py-2 text-sm">
+            {error}
+          </div>
+        )}
+
         <div className="col-span-2">
           <Input label="Nom complet" placeholder="Votre nom" name="name" required />
         </div>
         <div className="col-span-2">
           <Input label="Email" type="email" placeholder="votre@email.com" name="email" required />
         </div>
+
         <Input label="Date" type="date" name="date" required />
-        <Input label="Heure" type="time" name="time" required />
-        <div className="col-span-2">
-          <Select label="Nombre de personnes" name="guests" defaultValue="2">
-            <option value="2">2 Personnes</option>
-            <option value="4">4 Personnes</option>
-            <option value="6">6 Personnes</option>
-            <option value="8+">Groupe (+6)</option>
-          </Select>
-        </div>
+
+        <Select label="Heure" name="time" required defaultValue="">
+          <option value="" disabled>Choisir un créneau</option>
+          {timeSlots.map((t) => (
+            <option key={t} value={t}>{t}</option>
+          ))}
+        </Select>
+
+        <Input label="Nombre de personnes" name="guests" type="number" min={1} max={20} placeholder="2" required />
+
+        <Select label="Table" name="table" defaultValue="Standard" required>
+          {tableOptions.map((t) => (
+            <option key={t.value} value={t.value}>{t.label}</option>
+          ))}
+        </Select>
+
         <div className="col-span-2 pt-2">
           <Button type="submit" variant="primary" fullWidth loading={submitting}>
             Je réserve
