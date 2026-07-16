@@ -11,7 +11,7 @@ function delay(ms: number) {
   return new Promise((resolve) => setTimeout(resolve, ms))
 }
 
-const RESERVATION_WORKER_URL = ' https://comptoir-darna-reservation.perrydoyigbe.workers.dev'
+const RESERVATION_WORKER_URL = 'https://comptoir-darna-reservation.perrydoyigbe.workers.dev'
 // en prod, remplace par l'URL du Worker déployé (ou le domaine custom, étape 9)
 
 export async function submitReservation(data: ReservationFormData): Promise<{ ok: true }> {
