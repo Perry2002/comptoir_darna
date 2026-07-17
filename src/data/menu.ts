@@ -10,18 +10,7 @@ export const dishes: DishItem[] = [
     category: 'Plats',
     badge: 'Populaire',
     image:
-      'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=900&q=80',
-  },
-  {
-    id: 4,
-    name: "Tagine d'Agneau",
-    description:
-      "Agneau confit aux pruneaux d'Orient et amandes torréfiées, infusé au safran pur de Taliouine.",
-    price: 280,
-    category: 'Plats',
-    badge: 'Populaire',
-    image:
-      'https://images.unsplash.com/photo-1604329760661-e71dc83f8f26?w=900&q=80',
+      'https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784294539/unnamed_2_yqkohu.webp',
   },
   {
     id: 2,
@@ -42,7 +31,7 @@ export const dishes: DishItem[] = [
     category: 'Entrées',
     badge: 'Signature',
     image:
-      'https://images.unsplash.com/photo-1594007654729-407eedc4be65?w=900&q=80',
+      'https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784294863/images_qz5tfl.webp',
   },
   {
     id: 4,
@@ -53,7 +42,7 @@ export const dishes: DishItem[] = [
     category: 'Plats',
     badge: 'Populaire',
     image:
-      'https://images.unsplash.com/photo-1565557623262-b51c2513a641?w=900&q=80',
+      'https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784292980/unnamed-_2__zk2icv.webp',
   },
   {
     id: 5,
@@ -105,6 +94,17 @@ export const dishes: DishItem[] = [
     category: 'Boissons',
     image:
       'https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=900&q=80',
+  },
+  {
+    id: 4,
+    name: "Côtelettes d'Agneau Grillées",
+    description:
+      "Côtelettes d'Agneau Grillées",
+    price: 310,
+    category: 'Plats',
+    badge: 'Populaire',
+    image:
+      'https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784295587/unnamed_3_ktpqu0.webp',
   },
 ]
 

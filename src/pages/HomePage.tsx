@@ -135,7 +135,7 @@ export default function HomePage() {
       <section className="relative min-h-[640px] md:h-[820px] flex items-center overflow-hidden">
         <div className="absolute inset-0 z-0">
           <img
-            src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=1600&q=80"
+            src="https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784287539/D2_fdumld.webp"
             alt=""
             className="w-full h-full object-cover scale-105"
           />
@@ -211,7 +211,7 @@ export default function HomePage() {
  
           <div className="relative z-10 w-64 h-64 md:w-96 md:h-96 rounded-full overflow-hidden shadow-2xl border-8 border-white">
             <img
-              src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80"
+              src="https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784292674/unnamed_1_tnoarc.webp"
               alt="Tanjia Marrakchia servie dans un plat traditionnel"
               className="w-full h-full object-cover"
               loading="lazy"
@@ -256,46 +256,46 @@ export default function HomePage() {
     </div>
  
     <div className="grid grid-cols-2 md:grid-cols-4 gap-gutter mb-20">
-      {popularDishes.map((dish, i) => (
-        <motion.div
-          key={dish.id}
-          custom={i}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: '-60px' }}
-          variants={fadeUp}
-          className="bg-surface p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-center group"
-        >
-          <div className="w-28 h-28 md:w-40 md:h-40 mx-auto mb-4 rounded-full overflow-hidden border-4 border-surface-container">
-            <img
-              src={dish.image}
-              alt={dish.name}
-              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-              loading="lazy"
-            />
-          </div>
-          <h3 className="font-headline-md text-base md:text-headline-md text-on-surface mb-2">
-            {dish.name}
-          </h3>
-          <StarRating rating={5} size="text-sm" className="justify-center mb-3" />
-          <div className="flex items-center justify-between mt-4">
-            <span className="font-bold text-primary">{dish.price} DH</span>
-            <Link to="/menu">
-              <Button variant="ghost" size="sm" className="!bg-primary/10 !text-primary hover:!bg-primary hover:!text-on-primary !px-4 !py-2 !text-xs">
-                Voir
-              </Button>
-            </Link>
-          </div>
-        </motion.div>
-      ))}
-    </div>
+  {popularDishes.map((dish, i) => (
+    <motion.div
+      key={dish.id}
+      custom={i}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true, margin: '-60px' }}
+      variants={fadeUp}
+      className="bg-surface p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-center group flex flex-col h-full"
+    >
+      <div className="w-28 h-28 md:w-40 md:h-40 mx-auto mb-4 rounded-full overflow-hidden border-4 border-surface-container">
+        <img
+          src={dish.image}
+          alt={dish.name}
+          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+          loading="lazy"
+        />
+      </div>
+      <h3 className="font-headline-md text-base md:text-headline-md text-on-surface mb-2 min-h-[2.8em] flex items-center justify-center">
+        {dish.name}
+      </h3>
+      <StarRating rating={5} size="text-sm" className="justify-center mb-3" />
+      <div className="flex items-center justify-between mt-auto pt-4">
+        <span className="font-bold text-primary">{dish.price} DH</span>
+        <Link to="/menu">
+          <Button variant="ghost" size="sm" className="!bg-primary/10 !text-primary hover:!bg-primary hover:!text-on-primary !px-4 !py-2 !text-xs">
+            Voir
+          </Button>
+        </Link>
+      </div>
+    </motion.div>
+  ))}
+</div>
  
     {/* --- Bloc 3 : Plus qu'un simple service --- */}
     <div className="grid md:grid-cols-2 gap-12 items-center mt-24 reveal">
       <div className="relative">
         <div className="w-full aspect-square max-w-md mx-auto rounded-full overflow-hidden border-8 border-white shadow-2xl">
           <img
-            src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=800&q=80"
+            src="https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784296250/chef_uftbd7.webp"
             alt="Notre chef en cuisine"
             className="w-full h-full object-cover"
             loading="lazy"
@@ -392,7 +392,7 @@ export default function HomePage() {
           <div className="relative flex justify-center items-center">
             <div className="relative z-10 w-full aspect-[16/9] rounded-xl overflow-hidden shadow-xl">
               <img
-                src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1000&q=80"
+                src="https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784297107/darna-1_yys681.webp"
                 alt="Salle de réception dressée pour un dîner"
                 className="w-full h-full object-cover"
                 loading="lazy"
@@ -418,7 +418,7 @@ export default function HomePage() {
             <div className="md:col-span-7 relative mb-10 md:mb-0">
               <div className="rounded-lg overflow-hidden shadow-xl">
                 <img
-                  src="https://images.unsplash.com/photo-1551538827-9c037cb4f32a?w=1000&q=80"
+                  src="https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784297481/souktronik_afm8sd.webp"
                   alt="Bar et mixologie du Comptoir Darna"
                   className="w-full h-64 md:h-96 object-cover"
                   loading="lazy"
@@ -435,7 +435,7 @@ export default function HomePage() {
             <div className="md:col-span-5 md:mt-16">
               <div className="bg-surface rounded-lg overflow-hidden shadow-lg">
                 <img
-                  src="https://images.unsplash.com/photo-1566417713940-fe7c737a9ef2?w=800&q=80"
+                  src="https://res.cloudinary.com/djvqjz65z/image/upload/v1784297588/art_et_show_wr2roc.webp"
                   alt="Spectacle Art & Show du Comptoir Darna"
                   className="w-full h-80 object-cover"
                   loading="lazy"

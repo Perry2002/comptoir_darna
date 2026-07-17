@@ -116,7 +116,7 @@ export default function ReservationPage() {
             </div>
             <div className="hidden lg:block relative rounded-xl overflow-hidden shadow-lg h-64 mt-6">
               <img
-                src="https://images.unsplash.com/photo-1559339352-11d035aa65de?w=900&q=80"
+                src="https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784297107/darna-1_yys681.webp"
                 alt="Patio du Comptoir Darna illuminé la nuit"
                 className="object-cover w-full h-full"
                 loading="lazy"
