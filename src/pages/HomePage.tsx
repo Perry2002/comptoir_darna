@@ -72,7 +72,7 @@ function ReservationWidget() {
 
   if (success) {
     return (
-      <div className="bg-surface/95 backdrop-blur-md p-stack-md rounded-xl shadow-2xl space-y-4 border border-primary/40 text-center">
+      <div className="bg-surface/10 backdrop-blur-md p-stack-md rounded-xl shadow-2xl space-y-4 border border-primary/40 text-center">
         <h2 className="font-headline-md text-primary">Réservation envoyée !</h2>
         <p className="text-on-surface-variant">Vous allez recevoir un email de confirmation.</p>
         <Button variant="secondary" onClick={() => setSuccess(false)}>
@@ -83,8 +83,8 @@ function ReservationWidget() {
   }
 
   return (
-    <div className="bg-surface/95 backdrop-blur-md p-stack-md rounded-xl shadow-2xl space-y-6 border border-primary/40">
-      <h2 className="font-headline-md text-primary text-center">Réserver votre table</h2>
+    <div className="bg-surface/10 backdrop-blur-md p-stack-md rounded-xl shadow-2xl space-y-6 border border-primary/40">
+      <h2 className="font-headline-md text-white text-center">Réserver votre table</h2>
       <form className="grid grid-cols-2 gap-4" onSubmit={handleSubmit} noValidate>
         {error && (
           <div role="alert" className="col-span-2 bg-error-container text-on-error-container rounded-lg px-4 py-2 text-sm">
@@ -93,24 +93,24 @@ function ReservationWidget() {
         )}
 
         <div className="col-span-2">
-          <Input label="Nom complet" placeholder="Votre nom" name="name" required />
+          <Input label="" placeholder="Votre nom" name="name" />
         </div>
         <div className="col-span-2">
-          <Input label="Email" type="email" placeholder="votre@email.com" name="email" required />
+          <Input label="" type="email" placeholder="votre@email.com" name="email"  />
         </div>
 
-        <Input label="Date" type="date" name="date" required />
+        <Input label="" type="date" name="date"  />
 
-        <Select label="Heure" name="time" required defaultValue="">
+        <Select label="" name="time"  defaultValue="">
           <option value="" disabled>Choisir un créneau</option>
           {timeSlots.map((t) => (
             <option key={t} value={t}>{t}</option>
           ))}
         </Select>
 
-        <Input label="Nombre de personnes" name="guests" type="number" min={1} max={20} placeholder="2" required />
+        <Input label="" name="guests" type="number" min={1} max={20} placeholder="Nombre de Personnes"  />
 
-        <Select label="Table" name="table" defaultValue="Standard" required>
+        <Select label="" name="table" defaultValue="Standard" >
           {tableOptions.map((t) => (
             <option key={t.value} value={t.value}>{t.label}</option>
           ))}
