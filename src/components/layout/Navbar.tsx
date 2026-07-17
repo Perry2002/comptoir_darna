@@ -47,8 +47,7 @@ export default function Navbar() {
           className="flex items-center gap-2 font-display-lg text-headline-md text-primary tracking-tight"
           onClick={() => setMenuOpen(false)}
         >
-          <img src="/logocompt.png" alt="" className="h-9 w-9 object-contain" aria-hidden="true" />
-          <span></span>
+          <img src="/logocompt.png" alt="" className="h-[40px] w-[100px] object-contain" aria-hidden="true" />
         </Link>
 
         <div className="hidden md:flex gap-8 items-center">

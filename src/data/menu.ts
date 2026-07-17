@@ -10,7 +10,7 @@ export const dishes: DishItem[] = [
     category: 'Plats',
     badge: 'Populaire',
     image:
-      'https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784294539/unnamed_2_yqkohu.webp',
+      'https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784305510/agneau_gjqzwj.webp',
   },
   {
     id: 2,
@@ -31,7 +31,7 @@ export const dishes: DishItem[] = [
     category: 'Entrées',
     badge: 'Signature',
     image:
-      'https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784294863/images_qz5tfl.webp',
+      'https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784305867/t%C3%A9l%C3%A9chargement_kewz7a.webp',
   },
   {
     id: 4,
@@ -42,18 +42,18 @@ export const dishes: DishItem[] = [
     category: 'Plats',
     badge: 'Populaire',
     image:
-      'https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784292980/unnamed-_2__zk2icv.webp',
+      'https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784304986/Couscous-marocain_d9flbh.webp',
   },
-  {
-    id: 5,
-    name: "Salade d'Oranges",
-    description:
-      "Tranches d'oranges à la cannelle, eau de fleur d'oranger et éclats de menthe fraîche.",
-    price: 90,
-    category: 'Desserts',
-    image:
-      'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?w=900&q=80',
-  },
+  // {
+  //   id: 5,
+  //   name: "Salade d'Oranges",
+  //   description:
+  //     "Tranches d'oranges à la cannelle, eau de fleur d'oranger et éclats de menthe fraîche.",
+  //   price: 90,
+  //   category: 'Desserts',
+  //   image:
+  //     'https://images.unsplash.com/photo-1519864600265-abb23847ef2c?w=900&q=80',
+  // },
   {
     id: 6,
     name: 'Cornes de Gazelle',
@@ -104,7 +104,7 @@ export const dishes: DishItem[] = [
     category: 'Plats',
     badge: 'Populaire',
     image:
-      'https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784295587/unnamed_3_ktpqu0.webp',
+      'https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784305283/C%C3%B4telettes-d_agneau-%C3%A0-l_ail-noir_nwtvph.webp',
   },
 ]
 

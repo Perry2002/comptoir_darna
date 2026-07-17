@@ -16,7 +16,7 @@ export const chefs: Chef[] = [
     id: 2,
     name: 'Cheffe Fatima',
     bio: 'Spécialiste de la pâtisserie fine et des desserts de l\'Atlas.',
-    image: 'https://res.cloudinary.com/djvqjz65z/image/upload/f_auto,q_auto/v1784296539/chef2_h99fam.webp',
+    image: 'https://res.cloudinary.com/djvqjz65z/image/upload/v1784300667/d22_e2z4fa.webp',
   },
   {
     id: 3,
