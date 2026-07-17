@@ -9,6 +9,7 @@ import OpenBookMenu from '../components/menu/OpenBookMenu'
 import { dishes, menuCategories } from '../data/menu'
 import { bookMenuPages } from '../data/bookMenu'
 import type { MenuCategory } from '../types'
+import { HeroScallopDivider } from '../components/HeroScallopDivider'
 
 type FilterValue = (typeof menuCategories)[number]
 
@@ -49,6 +50,7 @@ export default function MenuPage() {
             className="w-full h-full object-cover"
           />
           <div className="absolute inset-0 bg-black/50" />
+          <HeroScallopDivider />
         </div>
         <div className="relative z-10 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full text-white">
           <span className="font-label-lg text-primary-fixed tracking-widest uppercase mb-4 block text-xs">

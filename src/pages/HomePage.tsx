@@ -13,6 +13,7 @@ import { reviews } from '../data/reviews'
 import { submitReservation } from '../lib/api'
 import { timeSlots, tableOptions } from '../lib/reservationOptions'
 import type { ReservationFormData } from '../types'
+import {HeroScallopDivider, RippleBackdrop} from '../components/HeroScallopDivider'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -140,6 +141,7 @@ export default function HomePage() {
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-black/10" />
         </div>
+        <HeroScallopDivider />
         <div className="relative z-10 w-full max-w-container-max px-margin-mobile md:px-margin-desktop mx-auto grid md:grid-cols-2 gap-12 items-center py-24">
           <motion.div
             className="text-white space-y-6"
@@ -174,167 +176,170 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* Ici chaque bouchée */}
-      <section className="py-stack-lg bg-surface relative overflow-hidden">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop grid md:grid-cols-2 gap-16 items-center">
-          <div className="space-y-8 reveal">
-            <h2 className="font-display-lg text-3xl md:text-5xl text-on-surface leading-tight">
-              Ici, chaque bouchée a un accent marocain.
-            </h2>
-            <p className="font-body-md text-on-surface-variant max-w-lg leading-relaxed">
-              Entre dîner spectacle envoûtant, rythmé par la danse orientale, et instants plus
-              intimes autour d'un tajine mijoté, d'un couscous royal ou d'une chicha, le Comptoir
-              Darna réinvente chaque soirée dans une ambiance à la fois chic et conviviale.
-            </p>
-            <div className="flex flex-wrap gap-4 pt-4">
-              <Link to="/menu">
-                <Button variant="primary" size="md">
-                  Découvrir le menu
-                </Button>
-              </Link>
-              <Link to="/reservation">
-                <Button variant="secondary" size="md" icon="calendar_month">
-                  Réserver
-                </Button>
-              </Link>
-            </div>
-          </div>
-
-          <div className="relative flex items-center justify-center md:justify-end reveal">
-            <div className="relative">
-              <div className="absolute inset-0 -m-8 border border-outline/10 rounded-full scale-125" aria-hidden="true" />
-              <div className="absolute inset-0 -m-16 border border-outline/10 rounded-full scale-150" aria-hidden="true" />
-              <div className="relative z-10 w-64 h-64 md:w-96 md:h-96 rounded-full overflow-hidden shadow-2xl border-8 border-white">
-                <img
-                  src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80"
-                  alt="Tanjia Marrakchia servie dans un plat traditionnel"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="hidden md:flex absolute -right-8 top-1/2 -translate-y-1/2 flex-col gap-4 z-20">
-                {categoryChips.map((c) => (
-                  <div
-                    key={c.label}
-                    className="flex items-center gap-3 bg-white/90 backdrop-blur-sm p-2 pr-6 rounded-full shadow-lg border border-outline-variant/20 hover:translate-x-2 transition-transform cursor-default group"
-                  >
-                    <div className={`w-10 h-10 rounded-full flex items-center justify-center ${c.color}`}>
-                      <span className="material-symbols-outlined text-xl" aria-hidden="true">
-                        {c.icon}
-                      </span>
-                    </div>
-                    <span className="font-label-lg text-on-surface whitespace-nowrap">{c.label}</span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+ {/* Ici chaque bouchée + Plats populaires — fusionnées */}
+<section className="py-stack-lg bg-surface relative overflow-hidden">
+  <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
+ 
+    {/* --- Bloc 1 : Ici chaque bouchée --- */}
+    <div className="grid md:grid-cols-2 gap-16 items-center mb-24 md:mb-32">
+      <div className="space-y-8 reveal">
+        <h2 className="font-display-lg text-3xl md:text-5xl text-on-surface leading-tight">
+          Ici, chaque bouchée a un accent marocain.
+        </h2>
+        <p className="font-body-md text-on-surface-variant max-w-lg leading-relaxed">
+          Entre dîner spectacle envoûtant, rythmé par la danse orientale, et instants plus
+          intimes autour d'un tajine mijoté, d'un couscous royal ou d'une chicha, le Comptoir
+          Darna réinvente chaque soirée dans une ambiance à la fois chic et conviviale.
+        </p>
+        <div className="flex flex-wrap gap-4 pt-4">
+          <Link to="/menu">
+            <Button variant="primary" size="md">
+              Découvrir le menu
+            </Button>
+          </Link>
+          <Link to="/reservation">
+            <Button variant="secondary" size="md" icon="calendar_month">
+              Réserver
+            </Button>
+          </Link>
         </div>
-      </section>
-
-      {/* Plats populaires */}
-      <section className="py-stack-lg bg-surface-container-low">
-        <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
-          <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-12 reveal">
-            <div>
-              <span className="font-label-lg text-primary uppercase tracking-widest block mb-2 text-xs">
-                Qu'est-ce que vous avez envie de manger ?
-              </span>
-              <h2 className="font-display-lg text-3xl md:text-display-lg text-on-surface">
-                Voici nos plats populaires
-              </h2>
-            </div>
-            <Link
-              to="/menu"
-              className="font-label-lg text-primary hover:underline flex items-center gap-1"
-            >
-              Voir tout <span className="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
-            </Link>
+      </div>
+ 
+      <div className="relative flex items-center justify-center reveal">
+        <div className="relative md:-translate-x-16 lg:-translate-x-24">
+          <RippleBackdrop />
+ 
+          <div className="relative z-10 w-64 h-64 md:w-96 md:h-96 rounded-full overflow-hidden shadow-2xl border-8 border-white">
+            <img
+              src="https://images.unsplash.com/photo-1544025162-d76694265947?w=800&q=80"
+              alt="Tanjia Marrakchia servie dans un plat traditionnel"
+              className="w-full h-full object-cover"
+              loading="lazy"
+            />
           </div>
-
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-gutter mb-20">
-            {popularDishes.map((dish, i) => (
-              <motion.div
-                key={dish.id}
-                custom={i}
-                initial="hidden"
-                whileInView="visible"
-                viewport={{ once: true, margin: '-60px' }}
-                variants={fadeUp}
-                className="bg-surface p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-center group"
+ 
+          <div className="hidden md:flex absolute -right-24 lg:-right-32 top-1/2 -translate-y-1/2 flex-col gap-4 z-20">
+            {categoryChips.map((c) => (
+              <div
+                key={c.label}
+                className="flex items-center gap-3 bg-white/90 backdrop-blur-sm p-2 pr-6 rounded-full shadow-lg border border-outline-variant/20 hover:translate-x-2 transition-transform cursor-default group"
               >
-                <div className="w-28 h-28 md:w-40 md:h-40 mx-auto mb-4 rounded-full overflow-hidden border-4 border-surface-container">
-                  <img
-                    src={dish.image}
-                    alt={dish.name}
-                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
-                    loading="lazy"
-                  />
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${c.color}`}>
+                  <span className="material-symbols-outlined text-xl" aria-hidden="true">
+                    {c.icon}
+                  </span>
                 </div>
-                <h3 className="font-headline-md text-base md:text-headline-md text-on-surface mb-2">
-                  {dish.name}
-                </h3>
-                <StarRating rating={5} size="text-sm" className="justify-center mb-3" />
-                <div className="flex items-center justify-between mt-4">
-                  <span className="font-bold text-primary">{dish.price} DH</span>
-                  <Link to="/menu">
-                    <Button variant="ghost" size="sm" className="!bg-primary/10 !text-primary hover:!bg-primary hover:!text-on-primary !px-4 !py-2 !text-xs">
-                      Voir
-                    </Button>
-                  </Link>
-                </div>
-              </motion.div>
+                <span className="font-label-lg text-on-surface whitespace-nowrap">{c.label}</span>
+              </div>
             ))}
           </div>
-
-          {/* Plus qu'un simple service */}
-          <div className="grid md:grid-cols-2 gap-12 items-center mt-24 reveal">
-            <div className="relative">
-              <div className="w-full aspect-square max-w-md mx-auto rounded-full overflow-hidden border-8 border-white shadow-2xl">
-                <img
-                  src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=800&q=80"
-                  alt="Notre chef en cuisine"
-                  className="w-full h-full object-cover"
-                  loading="lazy"
-                />
-              </div>
-              <div className="absolute -bottom-4 -right-4 bg-primary text-on-primary p-6 rounded-xl shadow-lg hidden md:block">
-                <p className="font-display-lg text-2xl">15+</p>
-                <p className="font-label-sm opacity-90">Années d'Excellence</p>
-              </div>
-            </div>
-            <div className="space-y-8">
-              <div>
-                <span className="font-label-lg text-primary uppercase tracking-widest block mb-2 text-xs">
-                  Notre Engagement
-                </span>
-                <h2 className="font-display-lg text-3xl md:text-display-lg text-on-surface leading-tight">
-                  Plus qu'un Simple Service
-                </h2>
-                <p className="font-body-md text-on-surface-variant mt-4">
-                  Nous nous efforçons de créer une expérience sensorielle complète, où chaque
-                  détail est pensé pour vous transporter au cœur de l'hospitalité marocaine.
-                </p>
-              </div>
-              <ul className="space-y-4">
-                {commitments.map((item) => (
-                  <li key={item} className="flex items-center gap-3">
-                    <span className="material-symbols-outlined text-primary bg-primary/10 p-1 rounded-full text-lg" aria-hidden="true">
-                      check
-                    </span>
-                    <span className="font-body-md">{item}</span>
-                  </li>
-                ))}
-              </ul><br />
-              <Link to="/experience">
-                <Button variant="primary" size="md">
-                  En savoir plus
-                </Button>
-              </Link>
-            </div>
-          </div>
         </div>
-      </section>
+      </div>
+    </div>
+ 
+    {/* --- Bloc 2 : Plats populaires --- */}
+    <div className="flex flex-col md:flex-row justify-between md:items-end gap-4 mb-12 reveal">
+      <div>
+        <span className="font-label-lg text-primary uppercase tracking-widest block mb-2 text-xs">
+          Qu'est-ce que vous avez envie de manger ?
+        </span>
+        <h2 className="font-display-lg text-3xl md:text-display-lg text-on-surface">
+          Voici nos plats populaires
+        </h2>
+      </div>
+      <Link
+        to="/menu"
+        className="font-label-lg text-primary hover:underline flex items-center gap-1"
+      >
+        Voir tout <span className="material-symbols-outlined text-sm" aria-hidden="true">arrow_forward</span>
+      </Link>
+    </div>
+ 
+    <div className="grid grid-cols-2 md:grid-cols-4 gap-gutter mb-20">
+      {popularDishes.map((dish, i) => (
+        <motion.div
+          key={dish.id}
+          custom={i}
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, margin: '-60px' }}
+          variants={fadeUp}
+          className="bg-surface p-6 rounded-xl shadow-sm hover:shadow-md transition-shadow text-center group"
+        >
+          <div className="w-28 h-28 md:w-40 md:h-40 mx-auto mb-4 rounded-full overflow-hidden border-4 border-surface-container">
+            <img
+              src={dish.image}
+              alt={dish.name}
+              className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+              loading="lazy"
+            />
+          </div>
+          <h3 className="font-headline-md text-base md:text-headline-md text-on-surface mb-2">
+            {dish.name}
+          </h3>
+          <StarRating rating={5} size="text-sm" className="justify-center mb-3" />
+          <div className="flex items-center justify-between mt-4">
+            <span className="font-bold text-primary">{dish.price} DH</span>
+            <Link to="/menu">
+              <Button variant="ghost" size="sm" className="!bg-primary/10 !text-primary hover:!bg-primary hover:!text-on-primary !px-4 !py-2 !text-xs">
+                Voir
+              </Button>
+            </Link>
+          </div>
+        </motion.div>
+      ))}
+    </div>
+ 
+    {/* --- Bloc 3 : Plus qu'un simple service --- */}
+    <div className="grid md:grid-cols-2 gap-12 items-center mt-24 reveal">
+      <div className="relative">
+        <div className="w-full aspect-square max-w-md mx-auto rounded-full overflow-hidden border-8 border-white shadow-2xl">
+          <img
+            src="https://images.unsplash.com/photo-1583394293214-28ded15ee548?w=800&q=80"
+            alt="Notre chef en cuisine"
+            className="w-full h-full object-cover"
+            loading="lazy"
+          />
+        </div>
+        <div className="absolute -bottom-4 -right-4 bg-primary text-on-primary p-6 rounded-xl shadow-lg hidden md:block">
+          <p className="font-display-lg text-2xl">15+</p>
+          <p className="font-label-sm opacity-90">Années d'Excellence</p>
+        </div>
+      </div>
+      <div className="space-y-8">
+        <div>
+          <span className="font-label-lg text-primary uppercase tracking-widest block mb-2 text-xs">
+            Notre Engagement
+          </span>
+          <h2 className="font-display-lg text-3xl md:text-display-lg text-on-surface leading-tight">
+            Plus qu'un Simple Service
+          </h2>
+          <p className="font-body-md text-on-surface-variant mt-4">
+            Nous nous efforçons de créer une expérience sensorielle complète, où chaque
+            détail est pensé pour vous transporter au cœur de l'hospitalité marocaine.
+          </p>
+        </div>
+        <ul className="space-y-4">
+          {commitments.map((item) => (
+            <li key={item} className="flex items-center gap-3">
+              <span className="material-symbols-outlined text-primary bg-primary/10 p-1 rounded-full text-lg" aria-hidden="true">
+                check
+              </span>
+              <span className="font-body-md">{item}</span>
+            </li>
+          ))}
+        </ul>
+        <br />
+        <Link to="/experience">
+          <Button variant="primary" size="md">
+            En savoir plus
+          </Button>
+        </Link>
+      </div>
+    </div>
+ 
+  </div>
+</section>
 
       {/* Nos chefs */}
       <section className="py-stack-lg">
@@ -456,7 +461,12 @@ export default function HomePage() {
       </section>
 
       {/* Témoignages */}
-      <section className="bg-surface-container-low py-stack-lg">
+      <section 
+        className="py-stack-lg"
+        style={{
+          background: 'linear-gradient(to bottom, #fdf9f4 0%, #f7f3ee 280px, #f7f3ee 100%)',
+          }}
+      >
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop">
           <SectionHeading eyebrow="Témoignages" title="Expériences Partagées" className="mb-12 reveal" />
           <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
