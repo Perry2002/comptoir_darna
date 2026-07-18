@@ -141,7 +141,7 @@ export default function ExperiencePage() {
       </section>
 
       {/* CTA */}
-      <section className="py-stack-lg bg-surface-container-highest text-center relative overflow-hidden">
+      <section className="py-stack-lg bg-surface-container-low text-center relative overflow-hidden">
         <div className="absolute inset-0 zellij-pattern" aria-hidden="true" />
         <div className="relative z-10 px-margin-mobile">
           <h2 className="font-display-lg text-3xl md:text-display-lg text-primary mb-6">

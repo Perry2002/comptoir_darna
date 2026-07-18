@@ -60,7 +60,7 @@ export default function ReservationPage() {
     : ''
 
   return (
-    <div className="bg-surface min-h-screen">
+    <div className="bg-surface-container-low min-h-screen">
       <main className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop py-stack-lg">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-start">
           {/* Info column */}
@@ -127,7 +127,7 @@ export default function ReservationPage() {
           {/* Booking form column */}
           <div className="lg:col-start-7 lg:col-span-6">
             <div
-              className="bg-surface-container-low rounded-xl p-6 md:p-10 shadow-sm border border-outline-variant/30"
+              className="bg-surface-container-high rounded-xl p-6 md:p-10 shadow-sm border border-outline-variant/30"
               aria-live="polite"
             >
               <AnimatePresence mode="wait">

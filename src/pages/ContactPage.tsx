@@ -41,7 +41,7 @@ export default function ContactPage() {
   }
 
   return (
-    <div className="bg-surface min-h-screen">
+    <div className="bg-surface-container-low min-h-screen">
       {/* Hero */}
       <section className="relative h-[360px] md:h-[480px] flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">

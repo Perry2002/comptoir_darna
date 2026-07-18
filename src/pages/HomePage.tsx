@@ -14,6 +14,7 @@ import { submitReservation } from '../lib/api'
 import { timeSlots, tableOptions } from '../lib/reservationOptions'
 import type { ReservationFormData } from '../types'
 import { HeroScallopDivider, RippleBackdrop } from '../components/HeroScallopDivider'
+import DarnaGroupSection from '../components/DarnaGroupSection'
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -459,6 +460,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <DarnaGroupSection />
 
       {/* Témoignages */}
       <section
@@ -501,6 +503,8 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      
     </div>
+    
   )
 }

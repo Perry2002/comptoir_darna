@@ -131,7 +131,7 @@ export default function BlogPage() {
   const rest = filtered.filter((a) => a.id !== featured?.id)
 
   return (
-    <div className="bg-surface min-h-screen">
+    <div className="bg-surface-container-low min-h-screen">
       {/* Hero */}
       <section className="bg-surface py-stack-lg border-b border-outline-variant/30">
         <div className="max-w-container-max mx-auto px-margin-mobile md:px-margin-desktop text-center">
