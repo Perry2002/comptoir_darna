@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from 'react'
 
 const ARCH_COUNT_MOBILE = 4
 const ARCH_COUNT_DESKTOP = 5
-const GAP_RATIO = 0.25    // écart = 25% de la largeur de chaque arche
-const ARCH_OFFSET_PX = 80 // décale la rangée vers l'image (px)
+const GAP_RATIO = 0.25       // écart = 25% de la largeur de chaque arche
+const ARCH_OFFSET_PX = 80    // décalage vers l'image (px) — voir OFFSET_RATIO_CAP
+const OFFSET_RATIO_CAP = 0.6 // le décalage ne dépasse jamais 60% du rayon de l'arche,
+                              // pour ne pas pousser les petites arches (mobile) hors du cadre
 
 // Couleur de remplissage des arches. Doit toujours correspondre au fond RÉEL
 // de la section crème adjacente pour que la jonction soit invisible :
@@ -23,9 +25,14 @@ function useScallopStyle(count: number, anchor: Anchor, fillColor: string) {
     if (!el) return
 
     function update(width: number) {
+      // Ignore les mesures à 0 (layout pas encore stabilisé au premier
+      // rendu, fréquent sur mobile avant chargement des polices/images) —
+      // on attend une mesure valide plutôt que de figer des arches invisibles.
+      if (width <= 0) return
+
       const tileWidth = width / count
       const gap = tileWidth * GAP_RATIO
-      const radius = (tileWidth - gap) / 2
+      const radius = Math.round((tileWidth - gap) / 2)
 
       // anchor='bottom' (hero) : dôme (∩) — base au bas de la rangée, pointe
       //   vers le haut dans l'image. Rangée collée en bas du hero, décalée
@@ -36,26 +43,40 @@ function useScallopStyle(count: number, anchor: Anchor, fillColor: string) {
       //   miroir exact de la logique du hero.
       const gradientPos = anchor === 'bottom' ? '50% 100%' : '50% 0%'
       const bgPos = anchor === 'bottom' ? 'bottom center' : 'top center'
-      const offset = anchor === 'bottom' ? ARCH_OFFSET_PX : -ARCH_OFFSET_PX
+      const cappedOffset = Math.min(ARCH_OFFSET_PX, radius * OFFSET_RATIO_CAP)
 
       setStyle({
         height: radius,
-        backgroundImage: `radial-gradient(circle ${radius}px at ${gradientPos}, ${fillColor} 0, ${fillColor} ${radius}px, transparent ${radius}px)`,
+        backgroundImage: `radial-gradient(circle ${radius}px at ${gradientPos}, ${fillColor} 0, ${fillColor} ${radius - 0.5}px, transparent ${radius}px)`,
         backgroundSize: `${tileWidth}px ${radius}px`,
         backgroundRepeat: 'repeat-x',
         backgroundPosition: bgPos,
-        transform: `translateY(${offset}px)`,
+        // Décalage via bottom/top directement plutôt que transform:translateY —
+        // un transform CSS crée un calque de composition séparé, qui peut
+        // laisser une fine ligne de crénelage à la frontière du calque quand
+        // l'élément est dans un parent overflow-hidden. bottom/top évite ça.
+        ...(anchor === 'bottom' ? { bottom: -cappedOffset } : { top: -cappedOffset }),
       })
     }
 
-    update(el.offsetWidth)
+    // Mesure immédiate...
+    update(el.getBoundingClientRect().width)
+
+    // ...et une seconde mesure à la frame suivante, au cas où la première
+    // aurait eu lieu avant que le layout ne soit stabilisé.
+    const raf = requestAnimationFrame(() => {
+      update(el.getBoundingClientRect().width)
+    })
 
     const observer = new ResizeObserver((entries) => {
       update(entries[0].contentRect.width)
     })
     observer.observe(el)
 
-    return () => observer.disconnect()
+    return () => {
+      cancelAnimationFrame(raf)
+      observer.disconnect()
+    }
   }, [count, anchor, fillColor])
 
   return [ref, style] as const
@@ -70,13 +91,13 @@ export function HeroScallopDivider() {
     <>
       <div
         ref={mobileRef}
-        className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none md:hidden"
+        className="absolute left-0 right-0 z-10 pointer-events-none md:hidden"
         style={mobileStyle}
         aria-hidden="true"
       />
       <div
         ref={desktopRef}
-        className="absolute bottom-0 left-0 right-0 z-10 pointer-events-none hidden md:block"
+        className="absolute left-0 right-0 z-10 pointer-events-none hidden md:block"
         style={desktopStyle}
         aria-hidden="true"
       />
@@ -93,13 +114,13 @@ export function FooterScallopDivider() {
     <>
       <div
         ref={mobileRef}
-        className="absolute top-0 left-0 right-0 z-10 pointer-events-none md:hidden"
+        className="absolute left-0 right-0 z-10 pointer-events-none md:hidden"
         style={mobileStyle}
         aria-hidden="true"
       />
       <div
         ref={desktopRef}
-        className="absolute top-0 left-0 right-0 z-10 pointer-events-none hidden md:block"
+        className="absolute left-0 right-0 z-10 pointer-events-none hidden md:block"
         style={desktopStyle}
         aria-hidden="true"
       />
@@ -107,7 +128,7 @@ export function FooterScallopDivider() {
   )
 }
 
-export function RippleBackdrop() {
+function RippleBackdrop() {
   return (
     <div
       aria-hidden="true"
@@ -128,9 +149,11 @@ export function RippleBackdrop() {
           rgba(86,66,60,0.10) 63% 70%,
           transparent 71% 82%,
           rgba(86,66,60,0.06) 83% 88%,
-          transparent 100% 100%)`,
+          transparent 89% 100%)`,
         filter: 'blur(4px)',
       }}
     />
   )
 }
+
+export { RippleBackdrop }

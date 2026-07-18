@@ -157,7 +157,7 @@ export default function HomePage() {
               Venez pour un repas. Repartez avec une nouvelle adresse préférée. Ici, la saveur
               n'est pas que dans la bouche : elle enlace vos yeux, vos oreilles et votre odorat.
             </p>
-            <div className="flex flex-wrap gap-4 pt-2">
+            {/* <div className="flex flex-wrap gap-4 pt-2">
               <Link to="/menu">
                 <Button variant="primary" size="lg">
                   Découvrir le menu
@@ -168,7 +168,7 @@ export default function HomePage() {
                   L'expérience
                 </Button>
               </Link>
-            </div>
+            </div> */}
           </motion.div>
 
           <motion.div initial="hidden" animate="visible" variants={fadeUp} custom={1}>
@@ -198,11 +198,11 @@ export default function HomePage() {
                     Découvrir le menu
                   </Button>
                 </Link>
-                <Link to="/reservation">
+                {/* <Link to="/reservation">
                   <Button variant="secondary" size="md" icon="calendar_month">
                     Réserver
                   </Button>
-                </Link>
+                </Link> */}
               </div>
             </div>
 
@@ -331,7 +331,7 @@ export default function HomePage() {
                 ))}
               </ul>
               <br />
-              <Link to="/experience">
+              <Link to="/blog">
                 <Button variant="primary" size="md">
                   En savoir plus
                 </Button>

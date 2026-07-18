@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom'
-import {FooterScallopDivider} from '../HeroScallopDivider'
+import { FooterScallopDivider } from '../HeroScallopDivider'
 
 const navLinks = [
   { to: '/', label: 'Accueil' },
@@ -37,7 +37,7 @@ export default function Footer() {
           que le fond de la dernière section de la home (Témoignages, #f7f3ee) */}
       <FooterScallopDivider />
 
-      <div className="relative z-10 grid grid-cols-1 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-stack-md max-w-container-max mx-auto pt-16 md:pt-20">
+      <div className="relative z-10 grid grid-cols-2 md:grid-cols-4 gap-gutter px-margin-mobile md:px-margin-desktop py-stack-md max-w-container-max mx-auto pt-16 md:pt-20">
         <div className="space-y-4">
           <div className="font-display-lg text-headline-md text-white">Comptoir Darna</div>
           <p className="font-body-md text-white/75">

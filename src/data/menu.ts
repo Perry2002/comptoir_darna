@@ -96,7 +96,7 @@ export const dishes: DishItem[] = [
       'https://images.unsplash.com/photo-1576092768241-dec231879fc3?w=900&q=80',
   },
   {
-    id: 4,
+    id: 5,
     name: "Côtelettes d'Agneau Grillées",
     description:
       "Côtelettes d'Agneau Grillées",
